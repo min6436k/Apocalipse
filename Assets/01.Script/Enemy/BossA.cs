@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -132,7 +133,7 @@ public class BossA : MonoBehaviour
             ShootProjectile(transform.position, direction1); //ShootProjectile 함수 호출
         }
 
-        Invoke("NextPattern", 1.0f);
+        Invoke("NextPattern", 0.5f);
     }
 
     private void Pattern2()
@@ -150,7 +151,7 @@ public class BossA : MonoBehaviour
             ShootProjectile(transform.position, direction2);
         }
 
-        Invoke("NextPattern", 1.0f);
+        Invoke("NextPattern", 0.5f);
     }
 
     private IEnumerator Pattern3()
@@ -166,7 +167,7 @@ public class BossA : MonoBehaviour
             yield return new WaitForSeconds(interval); //1초 대기
         }
 
-        Invoke("NextPattern", 1f);
+        Invoke("NextPattern", 0.5f);
     }
 
     private void Pattern4()
@@ -188,15 +189,15 @@ public class BossA : MonoBehaviour
             ShootProjectile(transform.position, direction3);//ShootProjectile 함수 호출
         }
 
-        Invoke("NextPattern", 1f);
+        Invoke("NextPattern", 0.5f);
     }
 
     private IEnumerator Pattern5()
     {
 
-        int numBullets = 10;
+        int numBullets = 20;
         float interval = 1.0f;
-        float BulletInterval = 0.3f;
+        float BulletInterval = 0.4f;
 
         for (int i = 0; i < numBullets; i++) 
         {
@@ -205,13 +206,13 @@ public class BossA : MonoBehaviour
             position.x -= 0.3f;
             for (int j = 0; j < 2; j++)
             {
-                ShootProjectile(position, Vector3.down, 8, 1);
+                ShootProjectile(position, Vector3.down, 4, 1);
 
                 position.x += 0.6f;
             }
 
             yield return new WaitForSeconds(BulletInterval);
-            BulletInterval *= 0.5f;
+            if(BulletInterval > 0.05f) BulletInterval *= 0.5f;
         }
         yield return new WaitForSeconds(interval);
 

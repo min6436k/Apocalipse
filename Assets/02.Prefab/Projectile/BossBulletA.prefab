@@ -26,7 +26,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6002970527543197129, guid: ffe6ac67526f113439cca6d4c41f7805, type: 3}
       propertyPath: m_TagString
-      value: EnemyBulltet
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 6720821284662250879, guid: ffe6ac67526f113439cca6d4c41f7805, type: 3}
       propertyPath: m_Size.x
@@ -38,7 +38,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6720821284662250879, guid: ffe6ac67526f113439cca6d4c41f7805, type: 3}
       propertyPath: m_IsTrigger
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6720821284662250879, guid: ffe6ac67526f113439cca6d4c41f7805, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x

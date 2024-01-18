@@ -11,8 +11,6 @@ public class Projectile : MonoBehaviour
     [HideInInspector]
     public float accelTime = 0;
     [HideInInspector]
-    public bool Is5Level = false;
-    [HideInInspector]
     public GameObject Homingtile;
 
     private Vector3 _direction;
@@ -46,29 +44,6 @@ public class Projectile : MonoBehaviour
     {
         //Instantiate(ExplodeFX, transform.position, Quaternion.identity);
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.tag != "Enemy") return;
-
-        if (!Is5Level)
-        {
-
-        }
-        else
-        {
-            int _rotate = -1;
-            for (int i = 0; i < 3; i++)
-            {
-                GameObject instance = Instantiate(Homingtile, transform.position, Quaternion.Euler(new Vector3(0, 0, 80*_rotate++)));
-                instance.GetComponent<Homingtile>().target = collision.transform;
-            }
-
-            Destroy(this.gameObject);
-        }
-
-    }
-
     IEnumerator Accel()
     {
 
@@ -81,6 +56,21 @@ public class Projectile : MonoBehaviour
             CurrentAccelTime += Time.deltaTime;
 
             yield return null;
+        }
+    }
+
+    public virtual void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "PlayerBullet" && this.tag == "Enemy")
+        {
+            Destroy(collision.gameObject);
+            Destroy(this.gameObject);
+        }
+
+        if (collision.name.Contains("Meteor"))
+        {
+            Destroy(collision.gameObject);
+            Destroy(this.gameObject);
         }
     }
 }

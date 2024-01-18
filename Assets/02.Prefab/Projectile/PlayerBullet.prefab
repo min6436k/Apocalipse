@@ -9,8 +9,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2034009220747182439, guid: ffe6ac67526f113439cca6d4c41f7805, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -3853900315991760761, guid: 5547e92425a5b584ba72bba3566474f0, type: 3}
+    - target: {fileID: 2034009220747182439, guid: ffe6ac67526f113439cca6d4c41f7805, type: 3}
       propertyPath: m_SortingLayer
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2034009220747182439, guid: ffe6ac67526f113439cca6d4c41f7805, type: 3}
       propertyPath: m_SortingLayerID

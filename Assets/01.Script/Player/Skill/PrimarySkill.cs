@@ -8,7 +8,11 @@ public class PrimarySkill : BaseSkill
 {
     public float ProjectileMoveSpeed;
     public GameObject Projectile;
+    public GameObject Level5PlayerBullet;
     public GameObject Homingtile;
+
+    private GameObject instance;
+    private Projectile projectile;
 
     private Weapon[] weapons;
     //각 무기에 대한 정보를 담기 위한 배열
@@ -40,19 +44,27 @@ public class PrimarySkill : BaseSkill
     //오브젝트를 생성하고 입력받은 위치와 방향으로 이동시키는 함수
     public void ShootProjectile(Vector3 position, Vector3 direction)
     {
-        GameObject instance = Instantiate(Projectile, position, Quaternion.identity);
-        Projectile projectile = instance.GetComponent<Projectile>();
+
+        if (_characterManager.Player.GetComponent<PlayerCharacter>().CurrentWeaponLevel == 5)
+        {
+            instance = Instantiate(Level5PlayerBullet, position, Quaternion.identity);
+            projectile = instance.GetComponent<Projectile>();
+
+            projectile.Homingtile = Homingtile;
+
+        }
+        else
+        {
+            instance = Instantiate(Projectile, position, Quaternion.identity);
+            projectile = instance.GetComponent<Projectile>();
+        }
 
         if (projectile != null)
         {
             projectile.MoveSpeed = ProjectileMoveSpeed;
             projectile.SetDirection(direction.normalized);
 
-            if (_characterManager.Player.GetComponent<PlayerCharacter>().CurrentWeaponLevel == 5)
-            {
-                projectile.Homingtile = Homingtile;
-                projectile.Is5Level = true;
-            }
+
         }
     }
 }

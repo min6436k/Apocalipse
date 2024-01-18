@@ -25,7 +25,7 @@ public class PlayerHPSystem : MonoBehaviour
         GameInstance.instance.CurrentPlayerHP = Health;
     }
 
-    //무적시간 때 시작적인 깜박임을 처리
+    //무적시간 때 시각적인 깜박임을 처리
     IEnumerator HitFlick()
     {
         int flickCount = 0; // 깜박인 횟수를 기록하는 변수
@@ -48,7 +48,7 @@ public class PlayerHPSystem : MonoBehaviour
     //그 과정에서 사망 처리나 무적 함수 호출 등도 같이 처리
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy")
+        if ((collision.gameObject.CompareTag("Enemy"))
             && !GameManager.Instance.GetPlayerCharacter().Invincibility
             && !GameManager.Instance.bStageCleared)
         {
@@ -57,7 +57,7 @@ public class PlayerHPSystem : MonoBehaviour
 
             //GameManager.Instance.SoundManager.PlaySFX("Hit");
 
-            Destroy(collision.gameObject);
+            if(!collision.name.Contains("Boss")) Destroy(collision.gameObject);
 
             if (Health <= 0)
             {
