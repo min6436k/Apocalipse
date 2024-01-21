@@ -11,7 +11,7 @@ public class EnemySpawnManager : BaseManager
     public float CoolDownTime; //쿨타임
     private float CoolTimeAmplitude;
     public float MeteorCoolDownTime;
-    public float MeteorCoolTimeAmp;
+    private float MeteorCoolTimeAmp;
 
     private int _spawnCount = 0; //지금까지 나온 몹 수
     public int BossSpawnCount = 10; //보스가 나오기까지 몹 출현 수

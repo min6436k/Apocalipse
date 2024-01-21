@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 
-public class EnemyPattern4 : MonoBehaviour
+public class EnemyPattern4 : MonoBehaviour, Freeze
 {
     public float MoveSpeed;
     public float AttackStopTime;
@@ -72,6 +72,15 @@ public class EnemyPattern4 : MonoBehaviour
 
             yield return new WaitForSeconds(MoveTime); // 3초 동안 움직임
         }
+    }
+
+    public IEnumerator FreezeTime()
+    {
+        StopAllCoroutines();
+        _isAttack = true;
+        yield return new WaitForSeconds(3);
+        StartCoroutine(Attack());
+        _isAttack = false;
     }
 
     void Move()

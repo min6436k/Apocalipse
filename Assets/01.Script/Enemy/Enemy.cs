@@ -17,10 +17,6 @@ public class Enemy : BaseCharacter
         originColor = gameObject.GetComponent<SpriteRenderer>().color;
     }
 
-    void Update()
-    {
-    }
-
     public void Dead()
     {
         if (!bIsDead)
@@ -72,4 +68,17 @@ public class Enemy : BaseCharacter
             flickCount++; // ±ô¹ÚÀÎ È½¼ö Áõ°¡
         }
     }
+    public IEnumerator FreezeTime()
+    {
+        GetComponentInChildren<SpriteRenderer>().color -= new Color(0.5f,0,0,0);
+        yield return new WaitForSeconds(3);
+        GetComponentInChildren<SpriteRenderer>().color = originColor;
+
+    }
+}
+
+public interface Freeze
+{
+
+    IEnumerator FreezeTime();
 }

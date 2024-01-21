@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.VirtualTexturing;
 
 //재생 스킬을 구현하는 클래스
 public class RepairSkill : BaseSkill
@@ -12,14 +13,10 @@ public class RepairSkill : BaseSkill
         base.Activate();
 
         PlayerHPSystem system = _characterManager.Player.GetComponent<PlayerHPSystem>();
-        if (system != null)
+        if (system != null && system.Health < system.MaxHealth)
         {
             system.Health += 1;
-
-            if (system.Health >= system.MaxHealth)
-            {
-                system.Health = system.MaxHealth;
-            }
+            system.Health = system.MaxHealth;
         }
     }
 }

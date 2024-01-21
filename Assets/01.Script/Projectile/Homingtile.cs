@@ -29,7 +29,7 @@ public class Homingtile : MonoBehaviour
 
         rb.velocity = transform.up * speed;
 
-        if (!col.enabled || target == null) return;
+        if (!IsTracking || target.gameObject == null) return;
 
         Vector2 dir = (Vector2)target.position - rb.position;
 
@@ -45,10 +45,10 @@ public class Homingtile : MonoBehaviour
     IEnumerator HitCooldown()
     {
         yield return new WaitForSeconds(0.1f);
-
-        col.enabled = true;
-
         StartCoroutine(SpeedUp());
+        IsTracking = true;
+        yield return new WaitForSeconds(0.2f);
+        col.enabled = true;
     }
 
     IEnumerator SpeedUp()
@@ -68,7 +68,7 @@ public class Homingtile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag != "Enemy" || !col.enabled) return;
+        if (collision.tag != "Enemy") return;
 
         Destroy(this.gameObject);
     }

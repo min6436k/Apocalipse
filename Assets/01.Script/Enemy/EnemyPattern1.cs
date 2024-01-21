@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyPattern1 : MonoBehaviour
+public class EnemyPattern1 : MonoBehaviour,Freeze
 {
     public float MoveSpeed;
     public float Amplitude; // 패턴의 진폭(위아래 이동 거리)
@@ -38,5 +38,18 @@ public class EnemyPattern1 : MonoBehaviour
         }
 
         transform.position -= new Vector3(0f, MoveSpeed * Time.deltaTime, 0f);
+    }
+
+    public IEnumerator FreezeTime()
+    {
+        if (MoveSpeed != 0)
+        {
+            float temp = MoveSpeed;
+            MoveSpeed = 0;
+            yield return new WaitForSeconds(3);
+            MoveSpeed = temp;
+        }
+
+        yield return null;
     }
 }

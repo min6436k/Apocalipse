@@ -675,7 +675,6 @@ MonoBehaviour:
   SpawnXSize: 10
   CoolDownTime: 2
   MeteorCoolDownTime: 2.5
-  MeteorCoolTimeAmp: 0
   BossSpawnCount: 15
 --- !u!1 &636906926
 GameObject:
@@ -986,6 +985,9 @@ MonoBehaviour:
   - {fileID: 6160647884455277609, guid: dd77c10a601bcc54c93e53ff0a95bcdc, type: 3}
   - {fileID: 2208804969451637781, guid: 5667ed2d93c3dfe44ba6ae3b30e7b93d, type: 3}
   - {fileID: 2763558988365743786, guid: feab46bcaf04c6f45853df5b09fe06e5, type: 3}
+  - {fileID: 2208804969451637781, guid: c660eaf2fc5005144a98b5c71b88339c, type: 3}
+  - {fileID: 2208804969451637781, guid: 71afdb3c77befb440a4255261075cb0a, type: 3}
+  - {fileID: 2208804969451637781, guid: 5867ee3a04b928e468c018830551fc51, type: 3}
   CurrentWeaponLevel: 0
   MaxWeaponLevel: 3
 --- !u!61 &1187653035

@@ -16,7 +16,8 @@ public class Projectile : MonoBehaviour
     private Vector3 _direction;
 
     public GameObject ExplodeFX;
-    //이동속도, 방향, ?? 변수
+
+    public bool autoDestroy = true;
 
     [SerializeField]
     private float _lifeTime = 3f;
@@ -24,7 +25,7 @@ public class Projectile : MonoBehaviour
     //_lifeTime이 지난 후 오브젝트 파괴
     void Start()
     {
-        Destroy(gameObject, _lifeTime);
+        if (autoDestroy) Destroy(gameObject, _lifeTime);
         if (acceleration != 0) StartCoroutine(Accel());
     }
 

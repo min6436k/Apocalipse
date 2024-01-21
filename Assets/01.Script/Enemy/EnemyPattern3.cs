@@ -8,7 +8,7 @@ public class EnemyPattern3 : EnemyPattern1
     public float ProjectileMoveSpeed;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "PlayerBullet")
+        if(collision.tag == "PlayerBullet" && MoveSpeed != 0)
         {
             GameObject projectile = Instantiate(Projectile, transform.position, Quaternion.identity);
             projectile.GetComponent<Projectile>().SetDirection(Vector3.down);

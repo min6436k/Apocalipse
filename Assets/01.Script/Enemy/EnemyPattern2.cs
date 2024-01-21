@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyPattern2 : MonoBehaviour
+public class EnemyPattern2 : MonoBehaviour, Freeze
 {
     public float MoveSpeed;
     public float AttackStopTime;
@@ -56,6 +56,14 @@ public class EnemyPattern2 : MonoBehaviour
         }
     }
 
+    public IEnumerator FreezeTime()
+    {
+        StopAllCoroutines();
+        _isAttack = true;
+        yield return new WaitForSeconds(3);
+        StartCoroutine(Attack());
+        _isAttack = false;
+    }
     void Move()
     {
         transform.position -= new Vector3(0f, MoveSpeed * Time.deltaTime, 0f);
