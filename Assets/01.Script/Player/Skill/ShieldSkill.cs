@@ -30,6 +30,7 @@ public class ShieldSkill : BaseSkill
             GameObject instance = Instantiate(bullet, transform);
 
             instance.GetComponent<Projectile>().autoDestroy = false;
+            instance.GetComponent<Projectile>().IsDestroyBullet = true;
             instance.transform.localPosition = Vector3.up;
 
             float spawnangle = 360.0f / count;

@@ -172,7 +172,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoveSpeed: 2
-  Is5Level: 0
+  acceleration: 0
+  accelTime: 0
   Homingtile: {fileID: 0}
   ExplodeFX: {fileID: 0}
-  _lifeTime: 3
+  autoDestroy: 1
+  _lifeTime: 5

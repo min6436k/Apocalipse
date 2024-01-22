@@ -1141,7 +1141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6c3aa71dc7b24946aa3e27111a9f6a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 0
+  Health: 3
   MaxHealth: 3
 --- !u!114 &1187653040
 MonoBehaviour:
@@ -1399,7 +1399,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameStartTime: 0
   Score: 0
-  CurrentStageLevel: 1
+  CurrentStageLevel: 2
   CurrentPlayerWeaponLevel: 0
   CurrentPlayerHP: 3
   CurrentPlayerFuel: 100

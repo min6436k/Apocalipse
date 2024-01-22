@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4106617301839582064}
   - component: {fileID: 8949056251917831766}
   - component: {fileID: 8011951429338837349}
+  - component: {fileID: 4114995995635038875}
   m_Layer: 0
   m_Name: Meteor
   m_TagString: Enemy
@@ -174,3 +175,19 @@ MonoBehaviour:
   MoveSpeed: 7
   ExplodeFX: {fileID: 0}
   _lifeTime: 3
+--- !u!114 &4114995995635038875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3973407743150191884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26854edf2539e8b42827b0f2dbbdbac8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Health: 2
+  AttackDamage: 1
+  bMustSpawnItem: 0
+  ExplodeFX: {fileID: 0}

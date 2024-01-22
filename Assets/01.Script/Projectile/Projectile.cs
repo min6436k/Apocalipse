@@ -19,6 +19,8 @@ public class Projectile : MonoBehaviour
 
     public bool autoDestroy = true;
 
+    public bool IsDestroyBullet = false;
+
     [SerializeField]
     private float _lifeTime = 3f;
 
@@ -62,13 +64,7 @@ public class Projectile : MonoBehaviour
 
     public virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "PlayerBullet" && this.tag == "Enemy")
-        {
-            Destroy(collision.gameObject);
-            Destroy(this.gameObject);
-        }
-
-        if (collision.name.Contains("Meteor"))
+        if(IsDestroyBullet && collision.tag == "Enemy" && collision.GetComponent<Projectile>())
         {
             Destroy(collision.gameObject);
             Destroy(this.gameObject);

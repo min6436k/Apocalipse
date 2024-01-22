@@ -11,19 +11,25 @@ public class BossA : MonoBehaviour
     public float FireRate = 2.0f; //총알의 발사 간격
     public float MoveSpeed = 2.0f; //이동속도
     public float MoveDistance = 5.0f; //양 옆으로 움직일 거리 제한
+    public bool _bCanMove = false; //움직일수 있는지
 
-    private int _currentPatternIndex = 0; //현재 패턴 상태
+    [SerializeField]
+    private int currentPatternIndex = 0; //현재 패턴 상태
+    [HideInInspector]
+    public int MaxpatternIndex = 6;
+
     private bool _movingRight = true; //오른쪽으로 움직이는중인지
-    private bool _bCanMove = false; //움직일수 있는지
     private Vector3 _originPosition; //초기 위치
 
-    private void Start()
+    public virtual void Start()
     {
+        MaxpatternIndex = 6;
+
         _originPosition = transform.position; //초기 위치 설정
         StartCoroutine(MoveDownAndStartPattern()); //움직임과 패턴을 시작시키는 함수 호출
     }
 
-    private IEnumerator MoveDownAndStartPattern()
+    public IEnumerator MoveDownAndStartPattern()
     {
         while (transform.position.y > _originPosition.y - 3f) //오브젝트의 좌표가 기존의 y값보다 3이상 클동안
         {
@@ -32,34 +38,32 @@ public class BossA : MonoBehaviour
         }
 
         _bCanMove = true; //움직일수 있는 상태로 변경
-        Invoke("NextPattern", 2.0f);
+        yield return new WaitForSeconds(FireRate);
+        NextPattern();
     }
 
-    private void Update()
+    public void Update()
     {
         if (_bCanMove) //움직일 수 있다면
             MoveSideways(); //가로 움직임 함수 호출
     }
 
-    private void NextPattern()
+    public void NextPattern()
     {
-        // 패턴 인덱스를 증가시키고, 마지막 패턴일 경우 다시 처음 패턴으로 돌아감
-        _currentPatternIndex = (_currentPatternIndex + 1) % 6;
-
         // 현재 패턴 실행
-        switch (_currentPatternIndex)
+        switch (currentPatternIndex)
         {
             case 0: //패턴 인덱스가 0이라면
-                Pattern1(); //첫번째 패턴 호출
+                StartCoroutine(Pattern1()); //첫번째 패턴 호출
                 break; //switch 탈출
             case 1: //==
-                Pattern2(); //==
+                StartCoroutine(Pattern2()); ; //==
                 break; // ==
             case 2:
                 StartCoroutine(Pattern3());
                 break;
             case 3:
-                Pattern4();
+                StartCoroutine(Pattern4());
                 break;
             case 4:
                 StartCoroutine(Pattern5());
@@ -68,9 +72,12 @@ public class BossA : MonoBehaviour
                 StartCoroutine(Pattern6());
                 break;
         }
+
+        // 패턴 인덱스를 증가시키고, 마지막 패턴일 경우 다시 처음 패턴으로 돌아감
+        currentPatternIndex = (currentPatternIndex + 1) % MaxpatternIndex;
     }
 
-    private void MoveSideways()
+    public void MoveSideways()
     {
         if (_movingRight) //오른쪽으로 움직이는중이라면
         {
@@ -95,7 +102,7 @@ public class BossA : MonoBehaviour
         StartCoroutine(MovingSidewaysRoutine());
     }
 
-    private IEnumerator MovingSidewaysRoutine()
+    public IEnumerator MovingSidewaysRoutine()
     {
         while (true) //무한반복
         {
@@ -104,21 +111,21 @@ public class BossA : MonoBehaviour
         }
     }
 
-    public void ShootProjectile(Vector3 position, Vector3 direction, float acceleration = 0, float accelTime = 0)
+    public void ShootProjectile(Vector3 position, Vector3 direction, float acceleration = 0, float accelTime = 0,float speed = 0)
     {
         GameObject instance = Instantiate(Projectile, position, Quaternion.identity); //Projectile을 입력받은 위치로 생성 후 변수에 저장
         Projectile projectile = instance.GetComponent<Projectile>(); //projectile변수에 instance의 클래스 정보 저장
 
         if (projectile != null) //projectile의 값이 존재한다면
         {
-            projectile.MoveSpeed = ProjectileMoveSpeed; //projectile의 이동속도 설정
+            projectile.MoveSpeed = speed==0 ? ProjectileMoveSpeed : speed; //projectile의 이동속도 설정
             projectile.SetDirection(direction.normalized); //입력받은 방향을 노멀라이즈하여 SetDirection함수를 호출해 projectile의 이동 방향 설정
             projectile.acceleration = acceleration;
             projectile.accelTime = accelTime;
         }
     }
 
-    private void Pattern1()
+    public virtual IEnumerator Pattern1()
     {
         // 패턴 1: 원형으로 총알 발사
         int numBullets1 = 30; //1패턴의 총알 갯수
@@ -133,10 +140,12 @@ public class BossA : MonoBehaviour
             ShootProjectile(transform.position, direction1); //ShootProjectile 함수 호출
         }
 
-        Invoke("NextPattern", 0.5f);
+        yield return new WaitForSeconds(FireRate);
+
+        NextPattern();
     }
 
-    private void Pattern2()
+    public virtual IEnumerator Pattern2()
     {
         // 패턴 2: 방사형으로 총알 발사, 위와 동일
         int numBullets2 = 12;
@@ -151,14 +160,16 @@ public class BossA : MonoBehaviour
             ShootProjectile(transform.position, direction2);
         }
 
-        Invoke("NextPattern", 0.5f);
+        yield return new WaitForSeconds(FireRate);
+
+        NextPattern();
     }
 
-    private IEnumerator Pattern3()
+    public virtual IEnumerator Pattern3()
     {
         // 패턴 3: 몇 초 간격으로 플레이어에게 하나씩 발사
         int numBullets = 5; //발사할 총알 개수
-        float interval = 1.0f; //총알 사이의 시간간격
+        float interval = 0.8f; //총알 사이의 시간간격
 
         for (int i = 0; i < numBullets; i++) //총알 갯수만큼 반복
         {
@@ -167,12 +178,13 @@ public class BossA : MonoBehaviour
             yield return new WaitForSeconds(interval); //1초 대기
         }
 
-        Invoke("NextPattern", 0.5f);
+        yield return new WaitForSeconds(FireRate);
+
+        NextPattern();
     }
 
-    private void Pattern4()
+    public virtual IEnumerator Pattern4()
     {
-        // 패턴 3: 나선형으로 총알 발사
         int numBullets3 = 10; //총알 갯수
         float angleStep3 = 360.0f / numBullets3; //총알 갯수만큼 360도를 분할
         float radius = 2.0f; //반지름
@@ -189,14 +201,14 @@ public class BossA : MonoBehaviour
             ShootProjectile(transform.position, direction3);//ShootProjectile 함수 호출
         }
 
-        Invoke("NextPattern", 0.5f);
+        yield return new WaitForSeconds(FireRate);
+
+        NextPattern();
     }
 
-    private IEnumerator Pattern5()
+    public virtual IEnumerator Pattern5()
     {
-
         int numBullets = 20;
-        float interval = 1.0f;
         float BulletInterval = 0.4f;
 
         for (int i = 0; i < numBullets; i++) 
@@ -214,14 +226,14 @@ public class BossA : MonoBehaviour
             yield return new WaitForSeconds(BulletInterval);
             if(BulletInterval > 0.05f) BulletInterval *= 0.5f;
         }
-        yield return new WaitForSeconds(interval);
+        yield return new WaitForSeconds(FireRate);
 
-        Invoke("NextPattern", 0.5f);
+        NextPattern();
     }
 
-    private IEnumerator Pattern6()
+    public virtual IEnumerator Pattern6()
     {
-        _bCanMove= false;
+        _bCanMove = false;
 
         for(int i = -2; i<3; i++)
         {
@@ -249,10 +261,12 @@ public class BossA : MonoBehaviour
 
         shotBullet();
 
-        Invoke("NextPattern", 1.0f);
+        yield return new WaitForSeconds(FireRate);
+
+        NextPattern();
     }
 
-    private void shotBullet()
+    public void shotBullet()
     {
         for (int i = 0; i < 2; i++)
         {
@@ -262,12 +276,12 @@ public class BossA : MonoBehaviour
         }
     }
 
-    private Vector3 PlayerPosition()
+    public Vector3 PlayerPosition()
     {
         return GameManager.Instance.GetPlayerCharacter().transform.position; //플레이어의 위치 구하기
     }
 
-    private void OnDestroy()
+    public void OnDestroy()
     {
         //GameManager.Instance.StageClear();
     }

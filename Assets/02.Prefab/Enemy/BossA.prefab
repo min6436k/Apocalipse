@@ -70,11 +70,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7644250180667045457, guid: 92fa3bf040230e44999cf14e0b45abd4, type: 3}
       propertyPath: m_Size.x
-      value: 2.75
+      value: 2.5745559
       objectReference: {fileID: 0}
     - target: {fileID: 7644250180667045457, guid: 92fa3bf040230e44999cf14e0b45abd4, type: 3}
       propertyPath: m_Size.y
-      value: 2.75
+      value: 2.5014544
+      objectReference: {fileID: 0}
+    - target: {fileID: 7644250180667045457, guid: 92fa3bf040230e44999cf14e0b45abd4, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.00000023841858
+      objectReference: {fileID: 0}
+    - target: {fileID: 7644250180667045457, guid: 92fa3bf040230e44999cf14e0b45abd4, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.12427288
       objectReference: {fileID: 0}
     - target: {fileID: 7644250180667045457, guid: 92fa3bf040230e44999cf14e0b45abd4, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
@@ -115,3 +123,6 @@ MonoBehaviour:
   FireRate: 2
   MoveSpeed: 2
   MoveDistance: 5
+  _bCanMove: 0
+  currentPatternIndex: 0
+  MaxpatternIndex: 6
