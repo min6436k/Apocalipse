@@ -34,7 +34,7 @@ public class PlayerCharacter : BaseCharacter
 
     #region Weapon
     public int CurrentWeaponLevel = 0;
-    public int MaxWeaponLevel = 3;
+    public int MaxWeaponLevel = 5;
     //캐릭터의 현재 무기 레벨과 최대 무기 레벨을 담는 변수
     #endregion
 

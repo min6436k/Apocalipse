@@ -15,6 +15,7 @@ public class PrimarySkill : BaseSkill
     private Projectile projectile;
 
     private Weapon[] weapons;
+
     //각 무기에 대한 정보를 담기 위한 배열
 
     //시작 시 스킬의 쿨타임을 정하고, 무기 배열을 초기화함
@@ -30,6 +31,7 @@ public class PrimarySkill : BaseSkill
         weapons[3] = new Level4Weapon();
         weapons[4] = new Level5Weapon();
         weapons[5] = new Level6Weapon();
+
     }
 
     //BaseSkill에 있던 Activate함수 내용을 가져오고, 추가로 코드 진행
