@@ -40,13 +40,13 @@ public class EnemyPattern1 : MonoBehaviour,Freeze
         transform.position -= new Vector3(0f, MoveSpeed * Time.deltaTime, 0f);
     }
 
-    public IEnumerator FreezeTime()
+    public IEnumerator FreezeTime(int stopTime)
     {
         if (MoveSpeed != 0)
         {
             float temp = MoveSpeed;
             MoveSpeed = 0;
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(stopTime);
             MoveSpeed = temp;
         }
 

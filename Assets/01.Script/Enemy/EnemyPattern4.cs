@@ -74,11 +74,11 @@ public class EnemyPattern4 : MonoBehaviour, Freeze
         }
     }
 
-    public IEnumerator FreezeTime()
+    public IEnumerator FreezeTime(int stopTime)
     {
         StopAllCoroutines();
         _isAttack = true;
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(stopTime);
         StartCoroutine(Attack());
         _isAttack = false;
     }

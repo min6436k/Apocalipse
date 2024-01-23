@@ -20,6 +20,8 @@ namespace EnumTypes
         Invincibility,
         Repair,
         Refuel,
+        AddOn,
+        Last,
     }
 }
 

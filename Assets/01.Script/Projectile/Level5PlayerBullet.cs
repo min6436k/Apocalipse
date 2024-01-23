@@ -9,7 +9,7 @@ public class Level5PlayerBullet : Projectile
         base.OnTriggerEnter2D(collision);
 
 
-        if(collision.tag == "Enemy")
+        if(collision.tag == "Enemy" && !collision.GetComponent<Projectile>())
         {
             int _rotate = -1;
             for (int i = 0; i < 3; i++)

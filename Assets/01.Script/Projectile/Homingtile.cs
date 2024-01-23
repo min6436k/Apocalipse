@@ -26,10 +26,11 @@ public class Homingtile : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (target == null) return;
 
         rb.velocity = transform.up * speed;
 
-        if (!IsTracking || target.gameObject == null) return;
+        if (!IsTracking) return;
 
         Vector2 dir = (Vector2)target.position - rb.position;
 

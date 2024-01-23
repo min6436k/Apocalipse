@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     public CharacterManager CharacterManager;
     public MapManager MapManager;
     public EnemySpawnManager EnemySpawnManager;
+    public ItemManager ItemManager;
+
     [HideInInspector] public bool bStageCleared = false;
     //하위Manager들을 담을 변수, 스테이지의 클리어 여부를 담을 bool변수
 
@@ -44,5 +46,10 @@ public class GameManager : MonoBehaviour
     public void GameStart()
     {
         SceneManager.LoadScene("Stage1");
+    }
+
+    public void EnemyDies()
+    {
+
     }
 }

@@ -20,11 +20,11 @@ public class PlayerCharacter : BaseCharacter
     //스킬에 대한 정보를 담을 딕셔너리와 스킬프리팹등을 담을 배열
 
     #region Invincibility
-    private bool invincibility;
-    private Coroutine invincibilityCoroutine;
-    private const double InvincibilityDurationInSeconds = 3; // 무적 지속 시간 (초)
+    private bool invincibility; //무적 여부
+    private Coroutine invincibilityCoroutine; //무적시간 코루틴을 제어하기 위한 변수
+    private const double InvincibilityDurationInSeconds = 3; // 무적 지속 시간 (초), 매직넘버 방지용
     //캐릭터의 무적 여부와 무적 시간을 담을 변수, 그리고 남은 무적 시간을 계산할 코루틴
-    public bool Invincibility
+    public bool Invincibility //private 변수를 외부에서도 처리하기 위한 getter, setter
     {
         get { return invincibility; }
         set { invincibility = value; }
@@ -38,10 +38,26 @@ public class PlayerCharacter : BaseCharacter
     //캐릭터의 현재 무기 레벨과 최대 무기 레벨을 담는 변수
     #endregion
 
+    #region AddOn
+    public int MaxAddOn = 2;
+    public int AddOnCount = 0;
+    public Transform[] AddOnPos;
+    public GameObject AddOnPrefab;
+    #endregion
+
     //BaseCharacter의 초기화 함수를 오버라이드하여 스킬을 초기화하기 위한 함수 호출
     public override void Init(CharacterManager characterManager)
     {
         base.Init(characterManager);
+
+        int CurrentAddOnCount = GameInstance.instance.CurrentAddOnCount;
+
+        for (int i = AddOnCount; i < CurrentAddOnCount; i++)
+        {
+            AddOnItem.SpawnAddOn(characterManager, AddOnPrefab, AddOnPos[i]);
+            AddOnCount ++;
+        }
+
         InitializeSkills();
     }
 
@@ -128,6 +144,47 @@ public class PlayerCharacter : BaseCharacter
             //    if (skillType != EnumTypes.PlayerSkill.Primary)
             //        GetComponent<PlayerUI>().NoticeSkillCooldown(skillType);
             //}
+        }
+    }
+
+    public void SetInvincibility(bool invin)
+    {
+        if (invin) //false 처리가 없어 지금은 의미 없는 구문
+        {
+            if (invincibilityCoroutine != null)  //실행중인 무적 코루틴이 있다면
+            {
+                StopCoroutine(invincibilityCoroutine); //진행중인 코루틴 중지
+            }
+
+            invincibilityCoroutine = StartCoroutine(InvincibilityCoroutine()); //코루틴을 다시 할당하여 무적시간 초기화
+        }
+    }
+
+    private IEnumerator InvincibilityCoroutine()
+    {
+        Invincibility = true; //무적 변수 true 설정
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>(); //스프라이트 렌더러 변수 할당
+
+        // 무적 지속 시간 (초)
+        float invincibilityDuration = 3f;
+        spriteRenderer.color = new Color(1, 1, 1, 0.5f); //무적시간동안 캐릭터 색상의 알파값을 절반으로 감소
+
+        // 무적이 해제될 때까지 대기
+        yield return new WaitForSeconds(invincibilityDuration);
+
+        // 타이머가 만료되면 무적을 비활성화
+        Invincibility = false;
+        spriteRenderer.color = new Color(1, 1, 1, 1f); //색상 원상복구
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "Item")
+        {
+            if (collision.GetComponent<BaseItem>() == null) return;
+
+            collision.GetComponent<BaseItem>().OnGetItem(CharacterManager);
+            Destroy(collision.gameObject);
         }
     }
 }

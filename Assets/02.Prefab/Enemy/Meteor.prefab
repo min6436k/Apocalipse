@@ -190,4 +190,4 @@ MonoBehaviour:
   Health: 2
   AttackDamage: 1
   bMustSpawnItem: 0
-  ExplodeFX: {fileID: 0}
+  ExplodeFX: {fileID: 7602224188806826471, guid: 401ce0b55eac7fa4ba8850cc3a488d12, type: 3}

@@ -21,8 +21,8 @@ public class FreezeSkill : BaseSkill
                 Enemy enemy = obj.GetComponent<Enemy>();
                 if (enemy != null && Freeze != null)
                 {
-                    StartCoroutine(Freeze.FreezeTime());
-                    StartCoroutine(enemy.FreezeTime());
+                    StartCoroutine(Freeze.FreezeTime(3));
+                    StartCoroutine(enemy.FreezeTime(3));
                 }
             }
         }

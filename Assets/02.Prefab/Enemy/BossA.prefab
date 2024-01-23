@@ -68,6 +68,10 @@ PrefabInstance:
       propertyPath: Health
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 7247004845739116351, guid: 92fa3bf040230e44999cf14e0b45abd4, type: 3}
+      propertyPath: bMustSpawnItem
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7644250180667045457, guid: 92fa3bf040230e44999cf14e0b45abd4, type: 3}
       propertyPath: m_Size.x
       value: 2.5745559
