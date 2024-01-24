@@ -8,21 +8,20 @@ public class AddOnItem : BaseItem
     public static void SpawnAddOn(CharacterManager characterManager, GameObject AddOnPrefap, Transform targetTransform)
     {
         GameObject instance = Instantiate(AddOnPrefap, characterManager.Player.transform.position, Quaternion.identity);
-        instance.GetComponent<AddOn>().targetTransform = targetTransform;
+        instance.GetComponent<AddOn>().TargetTransform = targetTransform;
     }
 
 
     public override void OnGetItem(CharacterManager characterManager)
     {
-        int CurrentAddOnCount = GameInstance.instance.CurrentAddOnCount;
+        int currentAddOnCount = GameInstance.instance.CurrentAddOnCount;
 
         PlayerCharacter playerCharacter = characterManager.Player.GetComponent<PlayerCharacter>();
 
-        int AddOnCount = playerCharacter.AddOnCount;
+        if (currentAddOnCount == playerCharacter.MaxAddOnCound) return;
 
-        if (CurrentAddOnCount == AddOnCount) return;
-        SpawnAddOn(characterManager, AddOnPrefab, playerCharacter.AddOnPos[AddOnCount]);
-        characterManager.Player.GetComponent<PlayerCharacter>().AddOnCount++;
-        GameInstance.instance.CurrentAddOnCount = AddOnCount;
+        SpawnAddOn(characterManager, AddOnPrefab, playerCharacter.AddOnPos[currentAddOnCount]);
+
+        playerCharacter.PlusAddOnCount(1);
     }
 }

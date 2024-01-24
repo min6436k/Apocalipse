@@ -6,14 +6,14 @@ using UnityEngine.UIElements;
 
 public class AddOn : MonoBehaviour
 {
-    public Transform targetTransform;
+    public Transform TargetTransform;
     public GameObject HomingTile;
-    public int followSpeed = 20;
-    public float ATKInterval = 0.5f;
+    public int FollowSpeed = 20;
+    public float AttackInterval = 0.5f;
 
-    public Transform targetEnemyTransform;
+    public Transform TargetEnemyTransform;
 
-    private Coroutine SearchCoroutine;
+    private Coroutine _searchCoroutine;
 
     private void Start()
     {
@@ -21,24 +21,24 @@ public class AddOn : MonoBehaviour
     }
     private void Update()
     {
-        if (targetEnemyTransform == null)
+        if (TargetEnemyTransform == null)
         {
-            if (SearchCoroutine != null) StopCoroutine(SearchCoroutine);
-            SearchCoroutine = StartCoroutine(SearchEnemy());
+            if (_searchCoroutine != null) StopCoroutine(_searchCoroutine);
+            _searchCoroutine = StartCoroutine(SearchEnemy());
         }
 
-        transform.position = Vector3.Lerp(transform.position, targetTransform.position, followSpeed * Time.deltaTime);
+        transform.position = Vector3.Lerp(transform.position, TargetTransform.position, FollowSpeed * Time.deltaTime);
     }
 
     IEnumerator ShootProjectile()
     {
-        if (targetEnemyTransform != null)
+        if (TargetEnemyTransform != null)
         {
 
             GameObject instance = Instantiate(HomingTile, transform.position, Quaternion.identity);
-            instance.GetComponent<Homingtile>().target = targetEnemyTransform;
+            instance.GetComponent<Homingtile>().target = TargetEnemyTransform;
         }
-        yield return new WaitForSeconds(ATKInterval);
+        yield return new WaitForSeconds(AttackInterval);
         StartCoroutine(ShootProjectile());
 
     }
@@ -48,15 +48,14 @@ public class AddOn : MonoBehaviour
         if (GameManager.Instance.bStageCleared) StopAllCoroutines();
 
         float distance = float.MaxValue;
-        GameObject target;
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (GameObject obj in enemies)
         {
-            if (obj != null && obj.GetComponent<Projectile>() == null)
+            if (obj != null && obj.GetComponent<Projectile>() == null && obj.GetComponent<Meteor>() == null)
             {
                 if (distance >= Vector3.Distance(transform.position, obj.transform.position))
                 {
-                    targetEnemyTransform = obj.transform;
+                    TargetEnemyTransform = obj.transform;
                     distance = Mathf.Min(Vector3.Distance(transform.position, obj.transform.position), distance);
                 }
             }
@@ -65,7 +64,7 @@ public class AddOn : MonoBehaviour
 
         yield return new WaitForSeconds(1);
 
-        SearchCoroutine = StartCoroutine(SearchEnemy());
+        _searchCoroutine = StartCoroutine(SearchEnemy());
     }
 
 }

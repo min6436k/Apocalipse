@@ -1046,8 +1046,7 @@ MonoBehaviour:
   - {fileID: 2208804969451637781, guid: 5867ee3a04b928e468c018830551fc51, type: 3}
   CurrentWeaponLevel: 0
   MaxWeaponLevel: 5
-  MaxAddOn: 2
-  AddOnCount: 0
+  MaxAddOnCound: 2
   AddOnPos:
   - {fileID: 1239748840}
   - {fileID: 314495447}
@@ -1498,7 +1497,7 @@ MonoBehaviour:
   CurrentPlayerWeaponLevel: 0
   CurrentPlayerHP: 3
   CurrentPlayerFuel: 100
-  CurrentAddOnCount: 0
+  CurrentAddOnCount: 1
 --- !u!4 &1460031084
 Transform:
   m_ObjectHideFlags: 0

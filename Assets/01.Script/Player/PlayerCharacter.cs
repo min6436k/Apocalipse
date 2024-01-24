@@ -39,8 +39,7 @@ public class PlayerCharacter : BaseCharacter
     #endregion
 
     #region AddOn
-    public int MaxAddOn = 2;
-    public int AddOnCount = 0;
+    public int MaxAddOnCound = 2;
     public Transform[] AddOnPos;
     public GameObject AddOnPrefab;
     #endregion
@@ -52,10 +51,9 @@ public class PlayerCharacter : BaseCharacter
 
         int CurrentAddOnCount = GameInstance.instance.CurrentAddOnCount;
 
-        for (int i = AddOnCount; i < CurrentAddOnCount; i++)
+        for (int i = 0; i < CurrentAddOnCount; i++)
         {
             AddOnItem.SpawnAddOn(characterManager, AddOnPrefab, AddOnPos[i]);
-            AddOnCount ++;
         }
 
         InitializeSkills();
@@ -176,6 +174,13 @@ public class PlayerCharacter : BaseCharacter
         Invincibility = false;
         spriteRenderer.color = new Color(1, 1, 1, 1f); //색상 원상복구
     }
+
+    public void PlusAddOnCount(int v)
+    {
+        GameInstance.instance.CurrentAddOnCount += v;
+    }
+
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

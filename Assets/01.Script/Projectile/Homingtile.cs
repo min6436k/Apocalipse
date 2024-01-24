@@ -26,7 +26,7 @@ public class Homingtile : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (target == null) return;
+        if (target == null) IsTracking = false;
 
         rb.velocity = transform.up * speed;
 
