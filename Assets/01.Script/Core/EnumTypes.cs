@@ -12,6 +12,7 @@ namespace EnumTypes
         Freeze,
         Shield,
         Change,
+        Last,
     }
 
     public enum ItemName

@@ -14,6 +14,8 @@ public class AddOnItem : BaseItem
 
     public override void OnGetItem(CharacterManager characterManager)
     {
+        Debug.Log("get");
+
         int currentAddOnCount = GameInstance.instance.CurrentAddOnCount;
 
         PlayerCharacter playerCharacter = characterManager.Player.GetComponent<PlayerCharacter>();

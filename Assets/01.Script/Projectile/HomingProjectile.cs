@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Homingtile : MonoBehaviour
+public class HomingProjectile : MonoBehaviour
 {
     private float speed = 12f;
     private float rotateSpeed = 1000f;

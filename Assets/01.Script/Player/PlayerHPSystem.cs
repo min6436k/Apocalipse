@@ -57,7 +57,7 @@ public class PlayerHPSystem : MonoBehaviour
 
             //GameManager.Instance.SoundManager.PlaySFX("Hit");
 
-            if(!collision.name.Contains("Boss")) Destroy(collision.gameObject);
+            if (!collision.name.Contains("Boss")) Destroy(collision.gameObject);
 
             if (Health <= 0)
             {
@@ -76,5 +76,11 @@ public class PlayerHPSystem : MonoBehaviour
         }
 
         GameInstance.instance.CurrentPlayerHP = Health;
+
+        if (Health <= 0)
+        {
+            StopAllCoroutines();
+            GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1); // 스프라이트를 원래 투명도로 설정
+        }
     }
 }

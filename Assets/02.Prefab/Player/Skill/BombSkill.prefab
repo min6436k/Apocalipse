@@ -44,6 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e20a33c14899d714e9f2a5b19304480f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CooldownTime: 0
+  CooldownTime: 15
   CurrentTime: 0
   bIsCoolDown: 0

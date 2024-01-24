@@ -6,65 +6,56 @@ using UnityEngine.UIElements;
 
 public class AddOn : MonoBehaviour
 {
-    public Transform TargetTransform;
-    public GameObject HomingTile;
-    public int FollowSpeed = 20;
-    public float AttackInterval = 0.5f;
+    public GameObject HomingProjectTile;
 
+    public Transform TargetTransform;
     public Transform TargetEnemyTransform;
 
-    private Coroutine _searchCoroutine;
+    public int FollowSpeed = 20;
+    public float AttackInterval = 0.5f;
 
     private void Start()
     {
         StartCoroutine(ShootProjectile());
     }
+
     private void Update()
     {
-        if (TargetEnemyTransform == null)
-        {
-            if (_searchCoroutine != null) StopCoroutine(_searchCoroutine);
-            _searchCoroutine = StartCoroutine(SearchEnemy());
-        }
-
+        if (TargetTransform == null) return;
         transform.position = Vector3.Lerp(transform.position, TargetTransform.position, FollowSpeed * Time.deltaTime);
     }
 
     IEnumerator ShootProjectile()
     {
-        if (TargetEnemyTransform != null)
-        {
+        SearchEnemy();
 
-            GameObject instance = Instantiate(HomingTile, transform.position, Quaternion.identity);
-            instance.GetComponent<Homingtile>().target = TargetEnemyTransform;
+        if (TargetEnemyTransform is not null)
+        {
+            GameObject instance = Instantiate(HomingProjectTile, transform.position, Quaternion.identity);
+            instance.GetComponent<HomingProjectile>().target = TargetEnemyTransform;
         }
+
         yield return new WaitForSeconds(AttackInterval);
         StartCoroutine(ShootProjectile());
-
     }
 
-    IEnumerator SearchEnemy()
+    private void SearchEnemy()
     {
-        if (GameManager.Instance.bStageCleared) StopAllCoroutines();
+        TargetEnemyTransform = null;
 
         float distance = float.MaxValue;
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (GameObject obj in enemies)
         {
-            if (obj != null && obj.GetComponent<Projectile>() == null && obj.GetComponent<Meteor>() == null)
+            if (obj?.GetComponent<Projectile>() == null && obj?.GetComponent<Meteor>() == null)
             {
-                if (distance >= Vector3.Distance(transform.position, obj.transform.position))
+                float targetDistance = Vector3.Distance(transform.position, obj.transform.position);
+                if (distance >= targetDistance)
                 {
                     TargetEnemyTransform = obj.transform;
-                    distance = Mathf.Min(Vector3.Distance(transform.position, obj.transform.position), distance);
+                    distance = Mathf.Min(targetDistance, distance);
                 }
             }
         }
-
-
-        yield return new WaitForSeconds(1);
-
-        _searchCoroutine = StartCoroutine(SearchEnemy());
     }
-
 }

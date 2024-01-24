@@ -97,8 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9c1fe0add9c4c14fb1da417fbb437b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetTransform: {fileID: 0}
-  HomingTile: {fileID: 3229137946478928912, guid: 7dd2a8a414533154cb0d20441fce1575, type: 3}
-  followSpeed: 15
-  ATKInterval: 0.5
-  targetEnemyTransform: {fileID: 0}
+  HomingProjectTile: {fileID: 3229137946478928912, guid: 7dd2a8a414533154cb0d20441fce1575, type: 3}
+  TargetTransform: {fileID: 0}
+  TargetEnemyTransform: {fileID: 0}
+  FollowSpeed: 20
+  AttackInterval: 0.5

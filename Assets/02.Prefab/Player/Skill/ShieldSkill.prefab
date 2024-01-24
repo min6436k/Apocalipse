@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb4820482df00ac44bdb1ee032a277f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CooldownTime: 0
+  CooldownTime: 15
   CurrentTime: 0
   bIsCoolDown: 0
   bullet: {fileID: 2506103979777510990, guid: 262fc32f543d8284d9725c96da0993e2, type: 3}

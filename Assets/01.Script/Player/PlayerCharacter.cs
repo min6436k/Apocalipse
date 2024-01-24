@@ -9,9 +9,11 @@ public class PlayerCharacter : BaseCharacter
 {
     #region Movement
     private Vector2 _moveInput;
+    private Animator _playerAnimator;
     public float MoveSpeed;
+
     #endregion
-    //플레이어의 이동속도와 움직임 방향 변수
+    //플레이어의 이동과 움직임 방향 변수
 
     #region Skills
     [HideInInspector] public Dictionary<EnumTypes.PlayerSkill, BaseSkill> Skills;
@@ -49,6 +51,8 @@ public class PlayerCharacter : BaseCharacter
     {
         base.Init(characterManager);
 
+        _playerAnimator = GetComponent<Animator>();
+
         int CurrentAddOnCount = GameInstance.instance.CurrentAddOnCount;
 
         for (int i = 0; i < CurrentAddOnCount; i++)
@@ -77,6 +81,10 @@ public class PlayerCharacter : BaseCharacter
     private void UpdateMovement()
     {
         _moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+
+        if (_moveInput.x == 0) _playerAnimator.SetInteger("Move", 0);
+        else _playerAnimator.SetInteger("Move", _moveInput.x < 0 ? 1 : 2);
+
         transform.Translate(new Vector3(_moveInput.x, _moveInput.y, 0f) * (MoveSpeed * Time.deltaTime));
 
         // 카메라의 좌측 하단은(0, 0, 0.0)이며, 우측 상단은(1.0 , 1.0)이다.
@@ -137,11 +145,11 @@ public class PlayerCharacter : BaseCharacter
             {
                 Skills[skillType].Activate();
             }
-            //else
-            //{
-            //    if (skillType != EnumTypes.PlayerSkill.Primary)
-            //        GetComponent<PlayerUI>().NoticeSkillCooldown(skillType);
-            //}
+            else
+            {
+                if (skillType != EnumTypes.PlayerSkill.Primary)
+                    GetComponent<PlayerUI>().NoticeSkillCooldown(skillType);
+            }
         }
     }
 
