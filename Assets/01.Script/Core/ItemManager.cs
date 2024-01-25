@@ -47,7 +47,7 @@ public class ItemManager : MonoBehaviour
     {
         if (Random.Range(0, 3) == 0) //0~2의랜덤 정수중 0이 나온다면
         {
-            SpawnItem(EnumTypes.ItemName.AddOn, position); //연료회복 아이템 생성
+            SpawnItem(EnumTypes.ItemName.Refuel, position); //연료회복 아이템 생성
             return; //아이템을 드랍했으므로 함수 종료
         }
 

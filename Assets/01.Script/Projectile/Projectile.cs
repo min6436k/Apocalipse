@@ -64,7 +64,7 @@ public class Projectile : MonoBehaviour
 
     public virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        if(IsDestroyBullet && collision.tag == "Enemy" && collision.GetComponent<Projectile>())
+        if(IsDestroyBullet && collision.tag == "Enemy" && (collision.GetComponent<Projectile>() || collision.GetComponent<Meteor>()))
         {
             Destroy(collision.gameObject);
             Destroy(this.gameObject);

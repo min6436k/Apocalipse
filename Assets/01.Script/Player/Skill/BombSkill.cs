@@ -17,8 +17,7 @@ public class BombSkill : BaseSkill
         {
             if (obj != null)
             {
-                if (obj.GetComponent<BossA>() && obj.GetComponent<BossB>())
-                    return;
+                if (obj.GetComponent<BossA>()) return;
 
                 Enemy enemy = obj.GetComponent<Enemy>();
                 if (enemy != null)

@@ -76,6 +76,14 @@ public class PlayerCharacter : BaseCharacter
         UpdateSkillInput();
     }
 
+    public void InitSkillCoolDown()
+    {
+        foreach(var skill in Skills.Values)
+        {
+            skill.InitCoolDown();
+        }
+    }
+
     //GetAxis를 통한 플레이어의 입력을 받아 캐릭터의 움직임을 구현
     //카메라를 기준으로 화면의 끝을 넘지 못하게 하는 벡터 변수를 생성하여 플레이어가 화면 밖으로 나가지 않도록 위치 고정
     private void UpdateMovement()

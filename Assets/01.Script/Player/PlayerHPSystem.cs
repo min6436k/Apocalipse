@@ -53,6 +53,7 @@ public class PlayerHPSystem : MonoBehaviour
             && !GameManager.Instance.bStageCleared)
         {
             Health -= 1;
+            GameInstance.instance.CurrentPlayerHP = Health;
             StartCoroutine(HitFlick());
 
             //GameManager.Instance.SoundManager.PlaySFX("Hit");
@@ -75,7 +76,6 @@ public class PlayerHPSystem : MonoBehaviour
             //GameManager.Instance.SoundManager.PlaySFX("GetItem");
         }
 
-        GameInstance.instance.CurrentPlayerHP = Health;
 
         if (Health <= 0)
         {

@@ -37,4 +37,10 @@ public class GameInstance : MonoBehaviour
         }
         GameStartTime = Time.time;
     }
+
+    public void Initlnstance()
+    {
+        instance = null;
+        Destroy(gameObject);
+    }
 }

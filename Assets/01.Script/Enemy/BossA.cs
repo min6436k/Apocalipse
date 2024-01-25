@@ -283,7 +283,7 @@ public class BossA : MonoBehaviour
 
     public void OnDestroy()
     {
-        //GameManager.Instance.StageClear();
+        GameManager.Instance.StageClear(); //게임매니저의 스테이지 클리어 함수 호출
     }
 
 }
